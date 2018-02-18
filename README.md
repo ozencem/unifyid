@@ -1,8 +1,10 @@
 # UnifyID Coding Challenge
 
-### Run
+### Run (Python 3 needs to be installed)
 
+```
 python unifyid.py
+```
 
 ### Output
 
