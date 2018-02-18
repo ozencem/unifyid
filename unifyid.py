@@ -74,6 +74,7 @@ def check_quota():
         return False
     return True
 
+
 def send_random_request(minimum, maximum, count):
     return requests.request('GET', 'https://www.random.org/integers/',
                             params={'num': count,

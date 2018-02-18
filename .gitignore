@@ -1,0 +1,12 @@
+build
+logs
+target
+out
+*.iml
+/.idea
+/.idea_modules
+/.classpath
+/.project
+/.settings
+/.DS_Store
+/RUNNING_PID
