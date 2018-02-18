@@ -1,17 +1,18 @@
 import requests
 
 def main():
-    print(generateRandom(1, 10000))
+    print(generate_random(1, 10000))
 
-def generateRandom(min, max):
+
+def generate_random(minimum, maximum):
     resp = requests.request('GET', "https://www.random.org/integers/",
-                            params = {'num': 1,
-                                      'min': min,
-                                      'max': max,
-                                      'col': 1,
-                                      'base': 10,
-                                      'format': 'plain',
-                                      'rnd': 'new'})
+                            params={'num': 1,
+                                    'min': minimum,
+                                    'max': maximum,
+                                    'col': 1,
+                                    'base': 10,
+                                    'format': 'plain',
+                                    'rnd': 'new'})
 
     if resp.status_code != 200:
         return None
