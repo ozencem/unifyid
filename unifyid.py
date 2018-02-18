@@ -18,6 +18,13 @@ def main():
 
 
 def generate_img(width, height):
+    """
+    Generates a bitmap :class:`Image<PIL.Image>`
+
+    :param width: width of the image
+    :param height: height of the image
+    :return: :class:`Image<PIL.Image>` object
+    """
     img = Image.new('RGB', (width, height))
     y = multiple_random_integers(0, 256*256*256-1, width * height)
     img.putdata(y)
@@ -25,6 +32,14 @@ def generate_img(width, height):
 
 
 def multiple_random_integers(minimum, maximum, count):
+    """
+    Generate multiple random integers using the RANDOM.ORG API
+
+    :param minimum: mimimum value for each integer
+    :param maximum: maximum value for each integer
+    :param count: number of integers
+    :return: List of integers
+    """
     remaining = count
     result = []
 
@@ -36,7 +51,7 @@ def multiple_random_integers(minimum, maximum, count):
 
         remaining = remaining - count
 
-        resp = send_random_request(minimum, maximum, count)
+        resp = __send_random_request(minimum, maximum, count)
 
         if resp.status_code != 200:
             print('Could not generate multiple random integers! reason: {}'.format(resp.text))
@@ -54,7 +69,14 @@ def multiple_random_integers(minimum, maximum, count):
 
 
 def single_random_integer(minimum, maximum):
-    resp = send_random_request(minimum, maximum, 1)
+    """
+    Generate a random integer using the RANDOM.ORG API
+
+    :param minimum: mimimum value for the integer
+    :param maximum: maximum value for the integer
+    :return: a random integer
+    """
+    resp = __send_random_request(minimum, maximum, 1)
 
     if resp.status_code != 200:
         print('Could not generate a single random integer! reason: {}'.format(resp.text))
@@ -68,6 +90,11 @@ def single_random_integer(minimum, maximum):
 
 
 def check_quota():
+    """
+    Check quota for the RANDOM.ORG API
+
+    :return: True if the request is successful AND there is remaining quota available
+    """
     resp = requests.request('GET', 'https://www.random.org/quota/?format=plain')
 
     if resp.status_code != 200 or int(resp.text) <= 0:
@@ -75,7 +102,7 @@ def check_quota():
     return True
 
 
-def send_random_request(minimum, maximum, count):
+def __send_random_request(minimum, maximum, count):
     return requests.request('GET', 'https://www.random.org/integers/',
                             params={'num': count,
                                     'min': minimum,
