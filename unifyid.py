@@ -20,8 +20,6 @@ def main():
 def generate_img(width, height):
     img = Image.new('RGB', (width, height))
     y = multiple_random_integers(0, 256*256*256-1, width * height)
-    print(img.size)
-    print(len(y))
     img.putdata(y)
     return img
 
